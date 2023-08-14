@@ -9,16 +9,42 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 
+
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "password",
-  database: "cruddatabase",
+  password: "Password@12345",
+ 
 });
+
 
 db.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
+});
+
+db.query(
+  "CREATE DATABASE if not exists cruddatabase; ", function (err, result) {
+  if (err) throw err;
+  console.log("Database created");
+});
+
+
+db.query(
+  "USE cruddatabase", function (err, result) {
+  if (err) throw err;
+  console.log("Database selected");
+});
+//creating movie_reivews table
+
+db.query(`CREATE TABLE if not exists movie_reviews(
+  id int NOT NULL AUTO_INCREMENT,
+  movieName varchar(255) NOT NULL,
+  moveReview text(500) NOT NULL,
+  PRIMARY KEY (ID)
+)`, function (err, result){
+  if (err) throw err;
+  console.log("movie_reviews table created.")
 });
 
 app.get("/api/get",(req,res)=>{
