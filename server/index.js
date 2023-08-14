@@ -35,14 +35,15 @@ db.query(
   if (err) throw err;
   console.log("Database selected");
 });
-//creating movie_reivews table
 
-db.query(`CREATE TABLE if not exists movie_reviews(
-  id int NOT NULL AUTO_INCREMENT,
-  movieName varchar(255) NOT NULL,
-  moveReview text(500) NOT NULL,
-  PRIMARY KEY (ID)
-)`, function (err, result){
+
+//creating movie_reivews table
+db.query(`CREATE TABLE IF NOT EXISTS movie_reviews (
+  id INT NOT NULL AUTO_INCREMENT,
+  movieName VARCHAR(255) NOT NULL,
+  movieReview TEXT NOT NULL,
+  PRIMARY KEY (id)
+);`, function (err, result){
   if (err) throw err;
   console.log("movie_reviews table created.")
 });
